@@ -32,7 +32,7 @@ public class Main {
             String[] currentProduct = inputString.split(" ");
             productNumber = Integer.parseInt(currentProduct[0]);
             productCount = Integer.parseInt(currentProduct[1]);
-            countOfProduct[productNumber] = productCount;
+            countOfProduct[productNumber] += productCount;
             isProductInBasket[productNumber] = true;
         }
         System.out.println("Ваша корзина:");
