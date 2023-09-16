@@ -21,37 +21,34 @@ public class Main {
         }
     }
 
-    public static void testTransfer(long amount, Account accountFrom, Account accountTo) {
-        if (accountFrom.transfer(accountTo, amount)) {
+    public static void testTransfer(long amount, Account accountFrom, Account accountTo, boolean choose) {
+        if (accountFrom.transfer(accountTo, amount) && choose) {
             System.out.println("Перевод с " + accountFrom.getName() + " на " + accountTo.getName() + " в размере: " + amount + "руб. прошел успешно");
             System.out.println("Остаток на счёте с которого переводили: " + accountFrom.getBalance() + " руб.");
             System.out.println("Баланс на счёте на который переводили: " + accountTo.getBalance() + " руб.");
         } else {
-            System.out.println("Перевод не прошел");
+            System.out.println("Перевод не прошел или был отклонен");
         }
     }
 
     public static void main(String[] args) {
         SimpleAccount simpleAccount = new SimpleAccount(15000, "обычный счет");
-        CreditAccount creditAccount = new CreditAccount(10000, 25000, "кредитный счет");
-        //Проверим работу пополнения
-        testAdd(10000, simpleAccount);
-        testAdd(1000, simpleAccount);
-        testAdd(1000, creditAccount);
-        testAdd(25001, creditAccount);
+        CreditAccount creditAccount = new CreditAccount(0, 25000, "кредитный счет");
+        testAdd(50000, simpleAccount);
         System.out.println(" ");
-        //Проверка работы оплаты
-        testPay(1000, simpleAccount);
-        testPay(26000, simpleAccount);
-        testPay(2000, creditAccount);
-        testPay(25000, creditAccount);
-        testPay(9001, creditAccount);
+        testPay(24000, creditAccount);
         System.out.println(" ");
-        //Проверка перевода
-        testTransfer(1000, simpleAccount, creditAccount);
-        testTransfer(109000, creditAccount, simpleAccount);
-        testTransfer(20000, simpleAccount, creditAccount);
-        testTransfer(1000, creditAccount, simpleAccount);
+        testAdd(100000, creditAccount);
+        System.out.println(" ");
+        testTransfer(24000, simpleAccount, creditAccount, true);
+        System.out.println(" ");
+        testTransfer(24000, simpleAccount, creditAccount, false);
+        System.out.println(" ");
+        testTransfer(25000, creditAccount, simpleAccount, true);
+        System.out.println(" ");
+        testTransfer(25001, creditAccount, simpleAccount, true);
+        System.out.println(" ");
+        testPay(100000, simpleAccount);
     }
 
 }

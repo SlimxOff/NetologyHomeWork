@@ -14,4 +14,5 @@ public class SmartLogger implements Logger {
         }
         number++;
     }
+
 }

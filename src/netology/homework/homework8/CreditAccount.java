@@ -3,12 +3,6 @@ package netology.homework.homework8;
 public class CreditAccount extends Account {
     long balance;
     long limit;
-
-    @Override
-    String getName() {
-        return name;
-    }
-
     String name;
 
     public CreditAccount(long balance, long limit, String name) {
@@ -19,21 +13,31 @@ public class CreditAccount extends Account {
 
     @Override
     boolean add(long amount) {
-        if ((balance + amount) > limit) {
+        if (this.getBalance() + amount > 0) {
             return false;
         } else {
-            balance += amount;
+            this.balance += amount;
             return true;
         }
     }
 
     @Override
     boolean pay(long amount) {
-        if ((balance - amount) < -limit) {
+        if ((this.getBalance() - amount) < -limit) {
             return false;
         } else {
-            balance -= amount;
+            this.balance -= amount;
             return true;
+        }
+    }
+
+    @Override
+    boolean transfer(Account account, long amount) {
+        if ((this.getBalance() - amount) < -limit) {
+            return false;
+        } else {
+            this.pay(amount);
+            return account.add(amount);
         }
     }
 
@@ -43,18 +47,12 @@ public class CreditAccount extends Account {
     }
 
     @Override
-    long getLimit() {
-        return limit;
+    String getName() {
+        return name;
     }
 
     @Override
-    boolean transfer(Account account, long amount) {
-        if ((balance - amount) < -limit) {
-            return false;
-        } else {
-            account.add(amount);
-            balance -= amount;
-            return true;
-        }
+    long getLimit() {
+        return limit;
     }
 }

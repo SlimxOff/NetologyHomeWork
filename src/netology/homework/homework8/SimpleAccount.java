@@ -4,11 +4,6 @@ public class SimpleAccount extends Account {
     long balance;
     String name;
 
-    @Override
-    String getName() {
-        return name;
-    }
-
     public SimpleAccount(long balance, String name) {
         this.balance = balance;
         this.name = name;
@@ -31,18 +26,22 @@ public class SimpleAccount extends Account {
     }
 
     @Override
+    boolean transfer(Account account, long amount) {
+        if (this.getBalance() < amount) {
+            return false;
+        } else {
+            this.pay(amount);
+            return account.add(amount);
+        }
+    }
+
+    @Override
     long getBalance() {
         return balance;
     }
 
     @Override
-    boolean transfer(Account account, long amount) {
-        if ((balance - amount) < 0) {
-            return false;
-        } else {
-            account.add(amount);
-            balance -= amount;
-            return true;
-        }
+    String getName() {
+        return name;
     }
 }
